@@ -46,6 +46,10 @@ function getProjectTasks(projectID) {
 		.orderBy('T.id', 'asc');
 }
 
+function getAllResources() {
+	return db('resources');
+}
+
 module.exports = {
 	addResources,
 	getListOfResources,
@@ -53,4 +57,5 @@ module.exports = {
 	getAllProjects,
 	addTasks,
 	getProjectTasks,
+	getAllResources,
 };

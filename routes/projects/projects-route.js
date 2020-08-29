@@ -18,6 +18,16 @@ router.post('/resources', validBodyForResources(), async (req, res, next) => {
 	}
 });
 
+router.get('/resources', async (req, res, next) => {
+	try {
+		const resources = await projectDB.getAllResources();
+
+		res.status(200).json(resources);
+	} catch (e) {
+		next(e);
+	}
+});
+
 // get resources by projectID
 router.get('/:id/resources', async (req, res, next) => {
 	try {
