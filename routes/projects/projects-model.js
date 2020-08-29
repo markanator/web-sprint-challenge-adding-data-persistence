@@ -1,5 +1,4 @@
-const db = require('../data/config');
-const { select } = require('../data/config');
+const db = require('../../data/config');
 
 // * adding resources
 function addResources(resourceOBJ) {
@@ -32,6 +31,20 @@ function addTasks(taskOBJ) {
 }
 // TODO retrieving a list of tasks
 // TODO ^^^ should include projecet name & description
+function getProjectTasks(projectID) {
+	return db('tasks as T')
+		.join('projects as P', 'P.id', 'T.project_id')
+		.where('P.id', projectID)
+		.select(
+			'P.name AS project_name',
+			'P.description AS project_description',
+			'T.id AS task_id',
+			'T.notes AS task_notes',
+			'T.description AS task_description',
+			'T.taskComplete AS task_completed'
+		)
+		.orderBy('T.id', 'asc');
+}
 
 module.exports = {
 	addResources,
@@ -39,4 +52,5 @@ module.exports = {
 	addProject,
 	getAllProjects,
 	addTasks,
+	getProjectTasks,
 };
